@@ -1,0 +1,983 @@
+:root {
+  --black: #0b2d3f;
+  --orange: #f8f9f3;
+  --dark: #4d91a5;
+  --blue: #f2ebd4;
+  --white: #ffffff;
+
+  --neutral-light: #d0d6dc;
+  --card-surface: #111;
+  --accent-copper: #ff9f43;
+  --royal-navy: #0a2540;
+  --off-white: #f2f2f2;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background-color: var(--black);
+  color: var(--white);
+  scroll-behavior: smooth;
+}
+
+h1,
+h2,
+h3,
+.logo {
+  font-family: "Orbitron", sans-serif;
+}
+
+/* Navigasi */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 8%;
+  background: rgba(0, 0, 0, 0.9);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 2px solid var(--orange);
+}
+
+.logo {
+  font-size: 1.5rem;
+  color: var(--orange);
+  font-weight: bold;
+}
+.logo span {
+  color: var(--dark);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Jarak antara gambar dan teks */
+}
+
+.logo-img {
+  width: 45px; /* Ukuran lebar logo */
+  height: 45px; /* Ukuran tinggi logo */
+  border-radius: 50%; /* Membuat logo bulat */
+  object-fit: cover; /* Agar gambar tidak penyok */
+  border: 2px solid var(--blue); /* Frame tipis warna Teal agar elegan */
+  background-color: var(--white); /* Background kalau logomu transparan */
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+.nav-links li {
+  margin-left: 20px;
+}
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-size: 0.9rem;
+  transition: 0.3s;
+}
+.nav-links a:hover {
+  color: var(--orange);
+}
+
+/* Hero */
+.hero {
+  height: 70vh;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+    url("../img/moment2.avif");
+  background-size: cover; /* Memastikan gambar memenuhi area tanpa penyok */
+  background-position: center; /* PENTING: Menjaga titik tengah gambar tetap di pusat */
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-bottom: 5px solid var(--blue);
+}
+
+.hero h1 {
+  font-size: 4rem;
+  color: var(--orange);
+  text-shadow: 0 0 15px var(--orange);
+}
+
+/* Section & Cards */
+.section {
+  padding: 80px 8%;
+}
+.section-title {
+  text-align: center;
+  margin-bottom: 50px;
+  color: var(--blue);
+}
+
+
+
+.perangkat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.p-card {
+  background: var(--dark);
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid var(--orange);
+  transition: 0.3s;
+}
+.p-card:hover {
+  transform: scale(1.05);
+  background: #1a1a1a;
+}
+.p-card i {
+  font-size: 2.5rem;
+  color: var(--orange);
+  margin-bottom: 15px;
+}
+
+/* Siswa List */
+.siswa-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.siswa-item {
+  background: #1a1a1a;
+  padding: 15px;
+  border-left: 3px solid var(--blue);
+  font-size: 0.9rem;
+}
+
+/* Gallery Moments */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.moment-card {
+  overflow: hidden;
+  border-radius: 10px;
+  height: 200px;
+  cursor: pointer;
+  border: 2px solid #333;
+}
+.moment-card video,
+.moment-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: 0.3s;
+}
+
+.moment-card:hover img {
+  transform: scale(1.1);
+}
+
+
+
+/* Lightbox Modal */
+/* Container Utama Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+
+  /* PENTING: Mengaktifkan scroll jika gambar lebih tinggi dari layar laptop */
+  overflow-y: auto;
+  padding: 50px 0; /* Memberi ruang atas bawah saat di-scroll */
+  display: none; /* Default awal tetap tersembunyi */
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Gambar di Dalam Modal */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 90%; /* Lebar gambar di laptop */
+  max-width: 1000px; /* Batas lebar maksimal */
+
+  /* Hapus max-height agar gambar bisa memanjang ke bawah dan bisa di-scroll */
+  height: auto;
+
+  border: 5px solid var(--card-surface);
+  outline: 2px solid var(--accent-copper);
+  transition: transform 0.3s ease;
+}
+
+/* Caption Teks di Bawah Gambar */
+#caption {
+  margin: 20px auto;
+  width: 80%;
+  text-align: center;
+  color: var(--neutral-light);
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 2px;
+}
+
+/* Tombol Close agar tetap di posisi atas saat scroll */
+.close {
+  position: fixed; /* Tetap di pojok kanan atas meski di-scroll */
+  top: 20px;
+  right: 35px;
+  color: var(--accent-copper);
+  font-size: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 2100;
+}
+
+/* Penyesuaian untuk Laptop (Layar Lebar) */
+@media (min-width: 1024px) {
+  .modal-content {
+    width: auto; /* Biar gambar menyesuaikan proporsi aslinya */
+    max-height: none; /* Mengizinkan gambar lebih tinggi dari layar */
+  }
+}
+
+/* Gaya Tombol Cyber di Index */
+.access-box {
+  text-align: center;
+  border: 2px dashed var(--orange);
+  padding: 50px;
+  border-radius: 20px;
+}
+
+.btn-cyber {
+  display: inline-flex;
+  align-items: center;
+  background: var(--orange);
+  color: black;
+  padding: 15px 30px;
+  text-decoration: none;
+  font-family: "Orbitron", sans-serif;
+  font-weight: bold;
+  margin-top: 20px;
+  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+  transition: 0.3s;
+}
+
+.btn-cyber:hover {
+  background: var(--blue);
+  transform: scale(1.1);
+}
+
+/* Gaya Kartu di Siswa.html */
+.siswa-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 30px;
+}
+
+.siswa-card {
+  position: relative;
+  background: #111;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  border: 1px solid #333;
+  overflow: hidden;
+  transition: 0.4s;
+}
+
+.siswa-card:hover {
+  border-color: var(--blue);
+  box-shadow: 0 0 20px rgba(0, 204, 255, 0.3);
+}
+
+.siswa-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid var(--orange);
+  margin-bottom: 15px;
+}
+
+.siswa-card .info h3 {
+  font-size: 1rem;
+  color: var(--white);
+}
+.siswa-card .info span {
+  color: var(--orange);
+  font-size: 0.8rem;
+  font-family: "Orbitron";
+}
+
+.page-header {
+  text-align: center;
+  padding: 50px 0;
+  position: relative;
+}
+
+/* Garis Animasi Scanner */
+.scanner-line {
+  width: 200px;
+  height: 2px;
+  background: var(--blue);
+  margin: 10px auto;
+  box-shadow: 0 0 10px var(--blue);
+  animation: scan 2s infinite alternate;
+}
+
+@keyframes scan {
+  from {
+    transform: scaleX(0.5);
+    opacity: 0.5;
+  }
+  to {
+    transform: scaleX(1.5);
+    opacity: 1;
+  }
+}
+/* Container Hierarki */
+.hierarchy-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.hierarchy-level {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Garis Penghubung Vertikal */
+.connector-line {
+  width: 2px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--orange), var(--blue));
+  box-shadow: 0 0 10px var(--blue);
+}
+
+/* Kartu Khusus Perangkat */
+.p-card {
+  background: #111;
+  border: 1px solid #333;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  min-width: 250px;
+  position: relative;
+  transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.p-card.accent-blue {
+  border-top: 4px solid var(--blue);
+  box-shadow: 0 10px 20px rgba(0, 204, 255, 0.1);
+}
+.p-card.accent-orange {
+  border-top: 4px solid var(--orange);
+  box-shadow: 0 10px 20px rgba(255, 102, 0, 0.1);
+}
+
+.rank-tag {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--dark);
+  padding: 2px 15px;
+  font-size: 0.7rem;
+  font-family: "Orbitron";
+  color: var(--orange);
+  border: 1px solid var(--orange);
+  border-radius: 20px;
+}
+
+/* Jajaran Staff (Paling Bawah Berjajar Horisontal) */
+.staff-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  width: 100%;
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px dashed #444;
+}
+
+.p-card:hover {
+  transform: translateY(-10px) rotate(1deg);
+  border-color: var(--white);
+}
+
+/* Responsif untuk HP */
+/* @media (max-width: 768px) {
+  .staff-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .p-card {
+    min-width: 100%;
+  }
+} */
+
+/* Container Foto Profil */
+.p-img-container {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 15px;
+  position: relative;
+  clip-path: polygon(
+    50% 0%,
+    100% 25%,
+    100% 75%,
+    50% 100%,
+    0% 75%,
+    0% 25%
+  ); /* Bentuk Hexagon */
+  background: var(--orange);
+  padding: 3px; /* Garis tepi neon */
+}
+
+.p-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: var(--dark);
+}
+
+/* Foto untuk jajaran Staff (Lebih Kecil) */
+.p-img-small {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 10px;
+  clip-path: circle(50%);
+  border: 2px solid var(--blue);
+  padding: 2px;
+}
+
+.p-img-small img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Efek Hover Glow */
+.p-card:hover .p-img-container {
+  box-shadow: 0 0 20px var(--orange);
+  transform: scale(1.05);
+  transition: 0.3s;
+}
+
+.accent-blue .p-img-container {
+  background: var(--blue);
+}
+/* Penyesuaian khusus untuk layar HP (Mobile) */
+@media (max-width: 480px) {
+  /* Mengecilkan Tombol Akses Database di Index */
+  .btn-cyber {
+    padding: 10px 20px; /* Ukuran sebelumnya 15px 30px */
+    font-size: 0.75rem; /* Mengecilkan font tombol */
+    margin-top: 15px;
+  }
+
+  /* Mengecilkan Box Akses agar tidak terlalu memakan tempat */
+  .access-box {
+    padding: 30px 15px;
+    border-width: 1px;
+  }
+
+  /* Mengecilkan Judul Hero di HP */
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  /* Mengecilkan Kartu Perangkat agar muat lebih banyak */
+  .p-card {
+    padding: 15px;
+    min-width: unset; /* Menghapus batas lebar minimal */
+  }
+
+  .p-img-container {
+    width: 90px; /* Mengecilkan foto perangkat di HP */
+    height: 90px;
+  }
+
+  /* Mengecilkan Tombol "Detail" atau tombol dalam kartu */
+  .p-card button,
+  .siswa-card button {
+    padding: 6px 12px;
+    font-size: 0.7rem;
+  }
+
+  /* Menyesuaikan Staff Grid agar muat 2 kolom kecil */
+  .staff-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding-top: 20px;
+  }
+
+  /* Mengecilkan Logo dan Navigasi */
+  nav {
+    padding: 15px 5%;
+  }
+
+  .logo {
+    font-size: 1.2rem;
+  }
+
+  .nav-links li {
+    margin-left: 10px;
+  }
+
+  .nav-links a {
+    font-size: 0.75rem;
+  }
+}
+footer {
+  padding: 40px 8%;
+  background: #0a0a0a;
+  border-top: 2px solid var(--royal-navy); /* Garis Biru Navy Mewah */
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.footer-content p {
+  color: var(--neutral-light);
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  opacity: 0.7;
+}
+
+.footer-social {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-social a {
+  color: var(--neutral-light);
+  font-size: 1.5rem; /* Ukuran ikon */
+  transition: 0.3s ease;
+  opacity: 0.6;
+}
+
+/* Warna Hover Ikon */
+.footer-social a:hover {
+  opacity: 1;
+  transform: translateY(-3px);
+}
+
+.footer-social a:hover .fa-instagram {
+  color: #e1306c; /* Warna khas Instagram */
+}
+
+.footer-social a:hover .fa-tiktok {
+  color: #00f2ea; /* Warna khas TikTok */
+}
+
+/* Penyesuaian di HP agar tidak terlalu besar */
+@media (max-width: 480px) {
+  footer {
+    padding: 30px 5%;
+  }
+  .footer-social a {
+    font-size: 1.2rem;
+  }
+}
+/* Styling Video di Galeri */
+.moment-card video {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.moment-card {
+  position: relative; /* Untuk posisi play icon */
+}
+
+.play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--accent-copper);
+  font-size: 3rem;
+  opacity: 0.8;
+  pointer-events: none; /* Biar tetap bisa diklik card-nya */
+}
+
+/* Penyesuaian Video di Modal */
+#videoFull {
+  border: 5px solid var(--card-surface);
+  outline: 2px solid var(--accent-copper);
+  background: black;
+}
+
+/* Pastikan section relatif agar tempelan menempel padanya */
+#perangkat {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Gaya Dasar untuk Foto Dekoratif */
+.decor-photo {
+  position: absolute;
+  width: 120px;
+  height: 160px;
+  background-color: var(--dark);
+  border: 3px solid var(--off-white);
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1; /* Di bawah konten utama */
+  background-size: cover;
+  background-position: center;
+}
+/* definisikan variasi posisi dan rotasi untuk setiap foto dekoratif */
+/* Posisi Variasi 1 (Kiri Atas, menempel tepi) */
+/* --- DEKORASI BINGKAI FOTO (Balanced Layout) --- */
+
+/* Posisi 1 (Kiri Atas - Sudut) */
+.decor-photo.pos-1 {
+  top: 20px;
+  left: 2%;
+  transform: rotate(-8deg);
+  background-image: url("../img/moment2.avif");
+}
+
+/* Posisi 2 (Kanan Atas - Sudut) */
+.decor-photo.pos-2 {
+  top: 40px;
+  right: 2%;
+  transform: rotate(12deg);
+  background-image: url("../img/moment3.avif");
+}
+
+/* Posisi 3 (Kiri Tengah - Menepi) */
+.decor-photo.pos-3 {
+  top: 40%;
+  left: -30px;
+  transform: rotate(5deg);
+  background-image: url("../img/moment16.avif");
+}
+
+/* Posisi 4 (Kanan Bawah - Sudut) */
+.decor-photo.pos-4 {
+  bottom: 50px;
+  right: 2%;
+  transform: rotate(-15deg);
+  background-image: url("../img/moment6.avif");
+}
+
+/* Posisi 5 (Kiri Bawah - Sudut) */
+.decor-photo.pos-5 {
+  bottom: 20px;
+  left: 3%;
+  transform: rotate(3deg);
+  background-image: url("../img/moment14.avif");
+}
+
+/* Posisi 6 (Tengah Atas - Di belakang Judul) */
+.decor-photo.pos-6 {
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg) scale(0.8);
+  background-image: url("../img/moment13.avif");
+}
+
+/* Posisi 7 (Kanan Tengah - Menepi) */
+.decor-photo.pos-7 {
+  top: 55%;
+  right: -20px;
+  transform: rotate(-10deg);
+  background-image: url("../img/moment7.avif");
+}
+
+/* Posisi 8 (Kiri - Antara Atas & Tengah) */
+.decor-photo.pos-8 {
+  top: 25%;
+  left: 15%;
+  transform: rotate(-12deg) scale(0.9);
+  background-image: url("../img/moment8.avif");
+}
+
+/* Posisi 9 (Tengah Bawah - Dekat Staff) */
+.decor-photo.pos-9 {
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(3deg);
+  background-image: url("../img/moment9.avif");
+}
+
+/* Posisi 10 (Kanan - Antara Atas & Tengah) */
+.decor-photo.pos-10 {
+  top: 25%;
+  right: 15%;
+  transform: rotate(15deg) scale(0.9);
+  background-image: url("../img/moment10.avif");
+}
+
+/* --- SEKITAR KOMANDO (Wali Kelas & Inti) --- */
+
+/* Posisi 11 (Samping Kiri Wali Kelas) */
+.decor-photo.pos-11 {
+  top: 180px;
+  left: 25%;
+  transform: rotate(-5deg) scale(0.8);
+  background-image: url("../img/moment11.avif");
+}
+
+/* Posisi 12 (Samping Kanan Wali Kelas) */
+.decor-photo.pos-12 {
+  top: 180px;
+  right: 25%;
+  transform: rotate(8deg) scale(0.8);
+  background-image: url("../img/moment12.avif");
+}
+
+/* Posisi 13 (Samping Kiri Ketua Kelas) */
+.decor-photo.pos-13 {
+  top: 450px;
+  left: 20%;
+  transform: rotate(10deg) scale(0.85);
+  background-image: url("../img/moment15.avif");
+}
+
+/* Posisi 14 (Samping Kanan Wakil Ketua) */
+.decor-photo.pos-14 {
+  top: 450px;
+  right: 20%;
+  transform: rotate(-10deg) scale(0.85);
+  background-image: url("../img/moment17.avif");
+}
+
+/* Posisi 15 (Antara Ketua & Staff) */
+.decor-photo.pos-15 {
+  bottom: 250px;
+  left: 15%;
+  transform: rotate(-5deg) scale(0.8);
+  background-image: url("../img/moment19.avif");
+}
+
+/* Pastikan konten utama tetap di depan */
+.hierarchy-container,
+.section-title {
+  position: relative;
+  z-index: 2;
+}
+
+.project-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.project-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--accent-blue);
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 800px;
+    position: relative;
+    overflow: hidden;
+}
+
+.project-content {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Kotak pembungkus poster */
+.project-poster {
+    width: 300px;         /* Tetapkan lebar kotak */
+    height: 450px;        /* Tetapkan tinggi kotak */
+    overflow: hidden;     /* Potong gambar yang berlebih */
+    border-radius: 12px;
+    background: #1a1a1a;  /* Warna dasar jika gambar belum load */
+}
+
+/* Gambar di dalam kotak */
+.project-poster img {
+    width: 100%;          /* Paksa lebar gambar penuhi kotak */
+    height: 100%;         /* Paksa tinggi gambar penuhi kotak */
+    object-fit: cover;    /* Gambar otomatis zoom agar pas & tidak gepeng */
+    object-position: center; /* Fokus ke tengah gambar */
+}
+
+
+.project-badge {
+    position: absolute;
+    top: 10px;
+    right: -30px;
+    background: #ff4d4d;
+    color: white;
+    padding: 5px 40px;
+    transform: rotate(45deg);
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+/* --- Media Query untuk Layar HP (Lebar maksimal 768px) --- */
+@media (max-width: 768px) {
+    
+    /* Tata letak konten project */
+    .project-content {
+        flex-direction: column; /* Tumpuk poster dan info ke bawah di HP */
+        text-align: center;     /* Ratakan teks ke tengah */
+    }
+
+    /* Ukuran Poster di HP */
+    .project-poster {
+        width: 100%;            /* Poster mengambil lebar penuh layar HP */
+        max-width: 200px;       /* Batasi lebar agar tidak terlalu besar */
+        height: auto;           /* Tinggi otomatis menyesuaikan gambar */
+        margin: 0 auto 20px auto; /* Tambah jarak bawah dan posisikan di tengah */
+    }
+    
+    .project-poster img {
+      height: auto; /* Pastikan gambar menyesuaikan tinggi otomatis */
+    }
+
+    /* Tombol di HP */
+    .btn-cyber {
+        width: 100%;            /* Tombol juga dibuat penuh layar */
+        box-sizing: border-box; /* Pastikan padding tidak membuat tombol keluar layar */
+    }
+
+    /* Grid Staff/Aktor di HP */
+    .staff-grid {
+        grid-template-columns: 1fr; /* Hanya tampilkan 1 kolom kartu di HP */
+    }
+}
+
+/* TRAILER */
+.trailer-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4rem;
+  padding: 0 1rem;
+}
+
+.trailer-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(0, 170, 255, 0.25);
+  background: #000;
+}
+
+.trailer-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16 / 9;
+}
+
+/* Overlay Text */
+.trailer-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.85),
+    rgba(0,0,0,0.1),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.trailer-overlay h2 {
+  margin: 0;
+  font-size: 1.6rem;
+  letter-spacing: 2px;
+  color: #00baff;
+}
+
+.trailer-overlay p {
+  margin: 0.3rem 0 0;
+  font-size: 0.9rem;
+  color: #bbb;
+  letter-spacing: 3px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .trailer-overlay h2 {
+    font-size: 1.2rem;
+  }
+
+  .trailer-overlay p {
+    font-size: 0.75rem;
+  }
+}
+
+/* Moments Form Styles */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.moment-form {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--accent-blue);
+  border-radius: 15px;
+  padding: 30px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--blue);
+  font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--neutral-light);
+  border-radius: 8px;
+  background: var(--card-surface);
+  color: var(--white);
+  font-size: 1rem;
+}
+
+.form-group input[type="file"] {
+  padding: 8px;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 10px rgba(0, 204, 255, 0.3);
+}
