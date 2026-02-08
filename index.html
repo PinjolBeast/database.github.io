@@ -8,15 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com" rel="stylesheet">
 
-    <!-- Firebase App (utama) dan Database -->
-     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
 
-    <script src="js/firebase-config.js"></script>
-
-    <script src="js/main.js"></script>
 
     <script>
         // Ensure functions are available globally after main.js loads
@@ -267,16 +259,15 @@
     </div>
 </footer>
 
-    
-    <!-- Firebase App (utama) dan Database -->
-     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- Firebase App (utama) dan Database - Load after main.js to avoid blocking issues -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
 
     <script src="js/firebase-config.js"></script>
-
-    <script src="js/main.js"></script>
 
     <script>
         // Add event listener as backup for token verification
