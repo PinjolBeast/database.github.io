@@ -1,40 +1,19 @@
 
 
-// Check if Firebase is loaded
-if (typeof firebase === 'undefined') {
-  alert('Firebase is not loaded. This may be due to antivirus software blocking external scripts. Please disable your antivirus temporarily or whitelist this site (pinjolbeast.github.io) to enable authentication.');
-  console.error('Firebase is not loaded. Check antivirus settings.');
-}
-
-// Global variable to track token verification
-let tokenVerified = false;
-
-// Test function to verify JavaScript is working
-function testFunction() {
-  alert('JavaScript is working!');
-  console.log('testFunction called');
-}
-
 // Authentication state observer
-if (window.firebaseAvailable) {
-  window.auth.onAuthStateChanged((user) => {
-    if (tokenVerified) {
-      if (user) {
-        // User is signed in
-        console.log('User signed in:', user.email);
-        showAddMomentForm();
-        updateAuthUI(user);
-      } else {
-        // User is signed out
-        console.log('User signed out');
-        hideAddMomentForm();
-        updateAuthUI(null);
-      }
-    }
-  });
-} else {
-  console.log('Firebase not available, skipping auth state observer');
-}
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    // User is signed in
+    console.log('User signed in:', user.email);
+    showAddMomentForm();
+    updateAuthUI(user);
+  } else {
+    // User is signed out
+    console.log('User signed out');
+    hideAddMomentForm();
+    updateAuthUI(null);
+  }
+});
 
 // Update authentication UI
 function updateAuthUI(user) {
@@ -56,34 +35,16 @@ function updateAuthUI(user) {
 
 // Login function
 function login() {
-  if (!window.firebaseAvailable) {
-    alert('Firebase is not available. Please disable your antivirus temporarily.');
-    return;
-  }
-
   const provider = new firebase.auth.GoogleAuthProvider();
-  window.auth.signInWithPopup(provider).catch((error) => {
+  firebase.auth().signInWithPopup(provider).catch((error) => {
     console.error('Login error:', error);
-    // If popup is blocked, try redirect method
-    if (error.code === 'auth/popup-blocked') {
-      window.auth.signInWithRedirect(provider).catch((redirectError) => {
-        console.error('Redirect login error:', redirectError);
-        alert('Login failed: ' + redirectError.message);
-      });
-    } else {
-      alert('Login failed: ' + error.message);
-    }
+    alert('Login failed: ' + error.message);
   });
 }
 
 // Logout function
 function logout() {
-  if (!window.firebaseAvailable) {
-    alert('Firebase is not available. Please disable your antivirus temporarily.');
-    return;
-  }
-
-  window.auth.signOut().catch((error) => {
+  firebase.auth().signOut().catch((error) => {
     console.error('Logout error:', error);
   });
 }
@@ -100,11 +61,7 @@ function fileToDataURL(file) {
 
 // Function to upload file data to Firebase Realtime Database
 async function uploadFile(file) {
-  if (!window.firebaseAvailable) {
-    throw new Error('Firebase not available');
-  }
-
-  const user = window.auth.currentUser;
+  const user = firebase.auth().currentUser;
   if (!user) throw new Error('User not authenticated');
 
   // Convert file to base64 data URL
@@ -116,12 +73,7 @@ async function uploadFile(file) {
 // Function to add a new moment with file upload
 async function addMoment(title, file) {
   try {
-    if (!window.firebaseAvailable) {
-      alert('Firebase is not available. Please disable your antivirus temporarily.');
-      return;
-    }
-
-    const user = window.auth.currentUser;
+    const user = firebase.auth().currentUser;
     if (!user) {
       alert('You must be logged in to add a moment');
       return;
@@ -159,7 +111,7 @@ async function addMoment(title, file) {
     };
 
     // Save to Firebase Realtime Database
-    const momentsRef = window.db.ref('moments');
+    const momentsRef = db.ref('moments');
     const newMomentRef = momentsRef.push();
     await newMomentRef.set(momentData);
     console.log('Moment added with ID:', newMomentRef.key);
