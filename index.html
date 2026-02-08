@@ -201,6 +201,11 @@
                     <input id="moment-file" type="file" accept="image/*,video/*" required>
                     <small style="color: var(--neutral-light);">Supported formats: Images and Videos</small>
                 </div>
+                <div class="form-group">
+                    <label for="moment-token">Authentication Token:</label>
+                    <input id="moment-token" type="password" placeholder="Enter token to confirm" required>
+                    <small style="color: var(--neutral-light);">Required token: idot</small>
+                </div>
                 <button type="submit" class="btn-cyber">
                     <span class="btn-text">Add Moment</span>
                     <span class="btn-icon"><i class="fa-solid fa-plus"></i></span>
@@ -246,6 +251,7 @@
     <script src="js/main.js"></script>
 
     <script>
+        
         // Add event listener as backup for token verification
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM loaded, setting up event listeners');

@@ -186,6 +186,12 @@ function handleAddMoment(event) {
   const title = document.getElementById('moment-title').value;
   const fileInput = document.getElementById('moment-file');
   const file = fileInput.files[0];
+  const token = document.getElementById('moment-token').value;
+
+  if (token !== 'idot') {
+    alert('Invalid token. Please enter the correct authentication token.');
+    return;
+  }
 
   addMoment(title, file);
 }

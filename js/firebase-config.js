@@ -30,4 +30,3 @@ if (typeof firebase !== 'undefined') {
   window.firebaseAvailable = false;
   alert('Firebase is not available. Please disable your antivirus temporarily or whitelist this site to enable authentication features.');
 }
-
