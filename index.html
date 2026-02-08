@@ -287,11 +287,15 @@
                 verifyBtn.addEventListener('click', function() {
                     console.log('Button clicked via event listener');
                     if (window.verifyToken) {
+                        console.log('Calling verifyToken function');
                         window.verifyToken();
                     } else {
                         console.error('verifyToken function not available');
+                        alert('Function not loaded. Please refresh the page.');
                     }
                 });
+            } else {
+                console.error('Verify button not found');
             }
         });
     </script>
