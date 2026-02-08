@@ -1,17 +1,38 @@
 
 
+// Global variable to track token verification
+let tokenVerified = false;
+
+// Verify auth token function
+function verifyToken() {
+  const tokenInput = document.getElementById('auth-token');
+  const token = tokenInput.value.trim();
+
+  if (token === 'idot') {
+    tokenVerified = true;
+    document.getElementById('auth-token-container').style.display = 'none';
+    document.getElementById('auth-buttons').style.display = 'block';
+    alert('Token verified! You can now login.');
+  } else {
+    alert('Invalid token. Please try again.');
+    tokenInput.value = '';
+  }
+}
+
 // Authentication state observer
 firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    // User is signed in
-    console.log('User signed in:', user.email);
-    showAddMomentForm();
-    updateAuthUI(user);
-  } else {
-    // User is signed out
-    console.log('User signed out');
-    hideAddMomentForm();
-    updateAuthUI(null);
+  if (tokenVerified) {
+    if (user) {
+      // User is signed in
+      console.log('User signed in:', user.email);
+      showAddMomentForm();
+      updateAuthUI(user);
+    } else {
+      // User is signed out
+      console.log('User signed out');
+      hideAddMomentForm();
+      updateAuthUI(null);
+    }
   }
 });
 

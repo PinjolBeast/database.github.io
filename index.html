@@ -174,8 +174,20 @@
     <section id="moments" class="section">
         <h2 class="section-title"><i class="fa-solid fa-camera"></i> Moments</h2>
 
+        <!-- Auth Token Input -->
+        <div id="auth-token-container" class="auth-container">
+            <div class="form-group">
+                <label for="auth-token">Enter Auth Token:</label>
+                <input id="auth-token" type="password" placeholder="Enter token" required>
+            </div>
+            <button id="verify-token-btn" onclick="verifyToken()" class="btn-cyber">
+                <span class="btn-text">Verify Token</span>
+                <span class="btn-icon"><i class="fa-solid fa-key"></i></span>
+            </button>
+        </div>
+
         <!-- Auth Buttons -->
-        <div id="auth-buttons" class="auth-container">
+        <div id="auth-buttons" class="auth-container" style="display:none">
             <button id="login-btn" onclick="login()" class="btn-cyber">
                 <span class="btn-text">Login with Google</span>
                 <span class="btn-icon"><i class="fa-brands fa-google"></i></span>
