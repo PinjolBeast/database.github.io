@@ -5,15 +5,19 @@ let tokenVerified = false;
 
 // Verify auth token function
 function verifyToken() {
+  console.log('verifyToken called');
   const tokenInput = document.getElementById('auth-token');
   const token = tokenInput.value.trim();
+  console.log('Token entered:', token);
 
   if (token === 'idot') {
+    console.log('Token is correct');
     tokenVerified = true;
     document.getElementById('auth-token-container').style.display = 'none';
     document.getElementById('auth-buttons').style.display = 'block';
     alert('Token verified! You can now login.');
   } else {
+    console.log('Token is incorrect');
     alert('Invalid token. Please try again.');
     tokenInput.value = '';
   }

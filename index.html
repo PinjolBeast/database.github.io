@@ -255,5 +255,15 @@
     <script src="js/firebase-config.js"></script>
 
     <script src="js/main.js"></script>
+
+    <script>
+        // Add event listener as backup for token verification
+        document.addEventListener('DOMContentLoaded', function() {
+            const verifyBtn = document.getElementById('verify-token-btn');
+            if (verifyBtn) {
+                verifyBtn.addEventListener('click', verifyToken);
+            }
+        });
+    </script>
 </body>
 </html>
