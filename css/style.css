@@ -86,6 +86,29 @@ nav {
   color: var(--orange);
 }
 
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: var(--orange);
+  margin: 3px 0;
+  transition: 0.3s;
+}
+.hamburger.active span:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+
 /* Hero */
 .hero {
   height: 70vh;
@@ -480,6 +503,66 @@ nav {
 
 .accent-blue .p-img-container {
   background: var(--blue);
+}
+
+/* Slider Styles */
+.slider-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-wrapper {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 20px;
+  padding: 10px;
+  width: 100%;
+  max-width: 800px;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.slider-wrapper::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
+}
+
+.slider-btn {
+  background: var(--dark);
+  border: 2px solid var(--orange);
+  color: var(--orange);
+  padding: 10px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: 0.3s;
+  z-index: 10;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.slider-btn:hover {
+  background: var(--orange);
+  color: var(--black);
+  box-shadow: 0 0 10px var(--orange);
+}
+
+.slider-btn.prev-btn {
+  left: -50px;
+}
+
+.slider-btn.next-btn {
+  right: -50px;
+}
+
+/* Ensure cards in slider don't shrink */
+.slider-wrapper .p-card {
+  flex-shrink: 0;
+  width: 250px;
 }
 /* Penyesuaian khusus untuk layar HP (Mobile) */
 @media (max-width: 480px) {
@@ -981,3 +1064,242 @@ footer {
   border-color: var(--blue);
   box-shadow: 0 0 10px rgba(0, 204, 255, 0.3);
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  /* Prevent horizontal scroll */
+  body, html {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Navigation */
+  nav {
+    padding: 15px 5%;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 250px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    z-index: 1001;
+  }
+
+  .nav-links.active {
+    right: 0;
+  }
+
+  .nav-links li {
+    margin: 20px 0;
+  }
+
+  .nav-links a {
+    font-size: 1rem;
+  }
+
+  /* Section */
+  .section {
+    padding: 40px 5%;
+    overflow-x: hidden;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+  }
+
+  /* Hierarchy Levels */
+  .hierarchy-container {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .hierarchy-level {
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  /* Cards */
+  .p-card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .p-img-container {
+    width: 100px;
+    height: 100px;
+    max-width: 100%;
+  }
+
+  .p-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .p-img-small {
+    width: 60px;
+    height: 60px;
+    max-width: 100%;
+  }
+
+  .p-img-small img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Staff Grid */
+  .staff-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Slider */
+  .slider-container {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .slider-btn {
+    display: none; /* Hide buttons on mobile, use touch scroll */
+  }
+
+  .slider-wrapper {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+  }
+
+  .slider-wrapper .p-card {
+    width: 200px;
+    flex-shrink: 0;
+    max-width: 200px;
+  }
+
+  /* Trailer */
+  .trailer-wrapper {
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .trailer-container {
+    max-width: 100%;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .trailer-video {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+
+  .trailer-overlay h2 {
+    font-size: 1.2rem;
+  }
+
+  .trailer-overlay p {
+    font-size: 0.75rem;
+  }
+
+  /* Hide decorative photos on mobile to prevent overflow */
+  .decor-photo {
+    display: none !important;
+  }
+
+  /* Footer */
+  footer {
+    padding: 30px 5%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .footer-content {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .footer-social {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .footer-social a {
+    font-size: 1.2rem;
+  }
+
+  /* Project content */
+  .project-container {
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .project-card {
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .project-content {
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .project-poster {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+
+  .project-poster img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+
+  /* Images and videos */
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
