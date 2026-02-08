@@ -257,11 +257,25 @@
     <script src="js/main.js"></script>
 
     <script>
+        // Ensure verifyToken is available globally
+        window.verifyToken = verifyToken;
+        window.login = login;
+        window.logout = logout;
+        window.handleAddMoment = handleAddMoment;
+        window.openModal = openModal;
+        window.openModalVideo = openModalVideo;
+        window.closeModal = closeModal;
+        window.testFunction = testFunction;
+
         // Add event listener as backup for token verification
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, setting up event listeners');
             const verifyBtn = document.getElementById('verify-token-btn');
             if (verifyBtn) {
-                verifyBtn.addEventListener('click', verifyToken);
+                verifyBtn.addEventListener('click', function() {
+                    console.log('Button clicked via event listener');
+                    verifyToken();
+                });
             }
         });
     </script>
