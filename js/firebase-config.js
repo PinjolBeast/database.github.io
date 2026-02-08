@@ -1,7 +1,7 @@
 // Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyC9PmWnCea0sYXAB9RRZ0KVkh-TxryKowA",
-  authDomain: "pinjolbeast.github.io",
+  authDomain: "tenzoska-moments.firebaseapp.com",
   databaseURL: "https://tenzoska-moments-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "tenzoska-moments",
   storageBucket: "tenzoska-moments.firebasestorage.app",
@@ -30,3 +30,4 @@ if (typeof firebase !== 'undefined') {
   window.firebaseAvailable = false;
   alert('Firebase is not available. Please disable your antivirus temporarily or whitelist this site to enable authentication features.');
 }
+
