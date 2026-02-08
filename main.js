@@ -1,5 +1,3 @@
-
-
 // Check if Firebase is loaded
 if (typeof firebase === 'undefined') {
   alert('Firebase is not loaded. This may be due to antivirus software blocking external scripts. Please disable your antivirus temporarily or whitelist this site (pinjolbeast.github.io) to enable authentication.');
@@ -337,3 +335,4 @@ function closeModal() {
 document.addEventListener('DOMContentLoaded', () => {
     loadMoments();
 });
+
