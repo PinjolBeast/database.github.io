@@ -8,53 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com" rel="stylesheet">
 
-    <script>
-        // Global variables
-        let tokenVerified = false;
 
-        // Verify auth token function
-        function verifyToken() {
-            console.log('verifyToken called - function is working');
-
-            const tokenInput = document.getElementById('auth-token');
-            if (!tokenInput) {
-                console.error('Token input element not found');
-                alert('Error: Token input not found');
-                return;
-            }
-
-            const token = tokenInput.value.trim();
-            console.log('Token entered:', token);
-
-            if (token === 'idot') {
-                console.log('Token is correct');
-                tokenVerified = true;
-
-                const tokenContainer = document.getElementById('auth-token-container');
-                const authButtons = document.getElementById('auth-buttons');
-
-                if (tokenContainer) {
-                    tokenContainer.style.display = 'none';
-                    console.log('Token container hidden');
-                } else {
-                    console.error('Token container not found');
-                }
-
-                if (authButtons) {
-                    authButtons.style.display = 'block';
-                    console.log('Auth buttons shown');
-                } else {
-                    console.error('Auth buttons not found');
-                }
-
-                alert('Token verified! You can now login.');
-            } else {
-                console.log('Token is incorrect');
-                alert('Invalid token. Please try again.');
-                tokenInput.value = '';
-            }
-        }
-    </script>
 
 </head>
 <body>
@@ -222,20 +176,8 @@
     <section id="moments" class="section">
         <h2 class="section-title"><i class="fa-solid fa-camera"></i> Moments</h2>
 
-        <!-- Auth Token Input -->
-        <div id="auth-token-container" class="auth-container">
-            <div class="form-group">
-                <label for="auth-token">Enter Auth Token:</label>
-                <input id="auth-token" type="password" placeholder="Enter token" required>
-            </div>
-            <button id="verify-token-btn" onclick="verifyToken()" class="btn-cyber">
-                <span class="btn-text">Verify Token</span>
-                <span class="btn-icon"><i class="fa-solid fa-key"></i></span>
-            </button>
-        </div>
-
         <!-- Auth Buttons -->
-        <div id="auth-buttons" class="auth-container" style="display:none">
+        <div id="auth-buttons" class="auth-container">
             <button id="login-btn" onclick="login()" class="btn-cyber">
                 <span class="btn-text">Login with Google</span>
                 <span class="btn-icon"><i class="fa-brands fa-google"></i></span>
