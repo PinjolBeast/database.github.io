@@ -337,4 +337,3 @@ function closeModal() {
 document.addEventListener('DOMContentLoaded', () => {
     loadMoments();
 });
-
