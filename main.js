@@ -5,22 +5,51 @@ let tokenVerified = false;
 
 // Verify auth token function
 function verifyToken() {
-  console.log('verifyToken called');
+  console.log('verifyToken called - function is working');
+
   const tokenInput = document.getElementById('auth-token');
+  if (!tokenInput) {
+    console.error('Token input element not found');
+    alert('Error: Token input not found');
+    return;
+  }
+
   const token = tokenInput.value.trim();
   console.log('Token entered:', token);
 
   if (token === 'idot') {
     console.log('Token is correct');
     tokenVerified = true;
-    document.getElementById('auth-token-container').style.display = 'none';
-    document.getElementById('auth-buttons').style.display = 'block';
+
+    const tokenContainer = document.getElementById('auth-token-container');
+    const authButtons = document.getElementById('auth-buttons');
+
+    if (tokenContainer) {
+      tokenContainer.style.display = 'none';
+      console.log('Token container hidden');
+    } else {
+      console.error('Token container not found');
+    }
+
+    if (authButtons) {
+      authButtons.style.display = 'block';
+      console.log('Auth buttons shown');
+    } else {
+      console.error('Auth buttons not found');
+    }
+
     alert('Token verified! You can now login.');
   } else {
     console.log('Token is incorrect');
     alert('Invalid token. Please try again.');
     tokenInput.value = '';
   }
+}
+
+// Test function to verify JavaScript is working
+function testFunction() {
+  alert('JavaScript is working!');
+  console.log('testFunction called');
 }
 
 // Authentication state observer
